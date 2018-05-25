@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IPurchaseRequisitionListViewProps } from './IPurchaseRequisitionListViewProps';
 import styles from './PurchaseRequisitionListView.module.scss';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
 export class PurchaseRequisitionListView extends React.Component<IPurchaseRequisitionListViewProps,any> {
 
@@ -17,14 +18,15 @@ export class PurchaseRequisitionListView extends React.Component<IPurchaseRequis
         this.onEditClick = this.onEditClick.bind(this);
     }
 
-
-
-
     public render() {
         console.log(this.props.productRequests);
         const spinner = (
             <div className='loading'>Processing...</div>
         );
+        const options = {
+            expandRowBgColor: 'rgb(242, 255, 163)',
+            expandAll: true
+          };
         return (
             
             <div>
@@ -38,12 +40,40 @@ export class PurchaseRequisitionListView extends React.Component<IPurchaseRequis
                     : ''
                 }
                 <div className={styles.content}>
-                    Content is here
+                    <BootstrapTable data={ this.props.productRequests }
+                        options={ options }
+                        expandableRow={ this.isExpandableRow }
+                        expandComponent={ this.expandComponent }
+                        expandColumnOptions={ { expandColumnVisible: true } }
+                        search>
+                        <TableHeaderColumn dataField='Title' isKey={ true }>PR Number</TableHeaderColumn>
+                        <TableHeaderColumn dataField='To'>Vendor</TableHeaderColumn>
+                        <TableHeaderColumn dataField='PurchaseDet'>Purchase Details</TableHeaderColumn>
+                        <TableHeaderColumn dataField='Total_x0020_Cost'>Total Cost</TableHeaderColumn>
+                        <TableHeaderColumn dataField='SAP_x0020_Cost_x0020_Centre'>SAP Cost Centre</TableHeaderColumn>
+                        <TableHeaderColumn dataField='Account_x0020_Code'>Account Code</TableHeaderColumn>
+                        <TableHeaderColumn dataField='Requested_x0020_By'>Requested By</TableHeaderColumn>
+                        <TableHeaderColumn dataField='Budget_x0020__x0028_Month_x0029_'>Budget (Month) </TableHeaderColumn>
+                        <TableHeaderColumn dataField='Budget_x0020__x0028_Balance_x002'>Budget (Balance) </TableHeaderColumn>
+                        <TableHeaderColumn dataField='Purchase_x0020_Request_x0020_Sta'>Purchase Request Status</TableHeaderColumn>
+                        <TableHeaderColumn dataField='Purchase_x0020_Requisition_x0020'>Purchase Requisition Approval Workflow</TableHeaderColumn>
+                        <TableHeaderColumn dataField='Purchase_x0020_Order'>Purchase Order</TableHeaderColumn>
+                    </BootstrapTable>
                 </div>
             </div >
         );
     }
 
+    isExpandableRow(row) {
+        return true;
+    }
+
+    expandComponent(row) {
+        console.log(row);
+        return (
+            <BSTable data={ row.PurchaseDet } />
+        );
+    }
 
     private onDeleteClick(index): void {
         this.setState({
@@ -55,3 +85,23 @@ export class PurchaseRequisitionListView extends React.Component<IPurchaseRequis
         //this.props.actionHandler.editPurchaseReq(Id);
     }
 }
+
+
+class BSTable extends React.Component<any,any> {
+    render() {
+      console.log(this.props.data);  
+      if (this.props.data) {
+        return (
+          <BootstrapTable data={ this.props.data }>
+            <TableHeaderColumn dataField='ProjectCode' isKey={ true }>Project Code</TableHeaderColumn>
+            <TableHeaderColumn dataField='BudgetCode'>Budget Code</TableHeaderColumn>
+            <TableHeaderColumn dataField='Details'>Details</TableHeaderColumn>
+            <TableHeaderColumn dataField='Quantity'>Quantity</TableHeaderColumn>
+            <TableHeaderColumn dataField='Cost'>Cost</TableHeaderColumn>
+            <TableHeaderColumn dataField='SubTotal'>Sub Total</TableHeaderColumn>
+          </BootstrapTable>);
+      } else {
+        return (<p>?</p>);
+      }
+    }
+  }

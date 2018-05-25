@@ -5,7 +5,7 @@ import { escape } from '@microsoft/sp-lodash-subset';
 import { PurchaseRequisitionListView } from '../ListView/PurchaseRequisitionListView';
 import { PurchaseRequisitionForm } from '../Form/PurchaseRequisitionForm';
 import { PurchaseRequisitionActionhandler } from './PurchaseRequisitionActionHandler';
-
+import { IPurchaseRequisitionService } from '../../services/IPurchaseRequisitionService';
 
 
 export class PurchaseRequisition extends React.Component<IPurchaseRequisitionProps, IPurchaseRequisitionState> {
@@ -15,7 +15,7 @@ export class PurchaseRequisition extends React.Component<IPurchaseRequisitionPro
 
   constructor(props: IPurchaseRequisitionProps, state: IPurchaseRequisitionState){
   super(props);
-  this.state = { 
+  this.state = {  
     productRequests: [],
     view: "display",
     error: "",
@@ -32,6 +32,12 @@ export class PurchaseRequisition extends React.Component<IPurchaseRequisitionPro
 
   }
 
+  public async componentDidMount(): Promise<void> {
+        this.setState({
+          productRequests: await this.actionHandler.getAllItems(),
+            isDataLoaded: true,
+        });
+  }
 
 //render the list view here as well as the add button to have form in a dialog
   public render(): React.ReactElement<IPurchaseRequisitionProps> {
@@ -53,8 +59,7 @@ export class PurchaseRequisition extends React.Component<IPurchaseRequisitionPro
       productRequests: await props.service.getAllItems(),
         isDataLoaded: true,
     });
-    
-}
+  }
 
   private changeView(view: string): void {
     this.setState({ view });

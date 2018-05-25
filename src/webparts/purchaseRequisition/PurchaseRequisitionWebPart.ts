@@ -13,7 +13,7 @@ import { IPurchaseRequisitionProps } from './components/Container/IPurchaseRequi
 import { IPurchaseRequisitionService } from './services/IPurchaseRequisitionService';
 import  { PurchaseRequsitionService }  from './services/PurchaseRequisitionService';
 import  { MockPurchaseRequisitionService }  from './services/MockPurchaseRequisitionService';
-//import Environment, { EnvironmentType } from '@microsoft/sp-core-library/lib/Environment';
+import { Environment, EnvironmentType } from '@microsoft/sp-core-library';
 
 export interface IPurchaseRequisitionWebPartProps {
     numberOfItems: number;
@@ -29,11 +29,11 @@ export default class PurchaseRequisitionWebPart extends BaseClientSideWebPart<IP
   ];
 
   protected onInit(): Promise<void> {
-   // if (Environment.type === EnvironmentType.Local ) {
-    //  this.mockservice = new MockPurchaseRequisitionService(null);
-    //} else if (Environment.type == EnvironmentType.SharePoint || Environment.type == EnvironmentType.ClassicSharePoint) {
-    //  this.service = new PurchaseRequsitionService(this.context);
-    //}
+    if (Environment.type === EnvironmentType.Local  ) {
+      this.service = new MockPurchaseRequisitionService(null); 
+    } else if (Environment.type == EnvironmentType.SharePoint || Environment.type == EnvironmentType.ClassicSharePoint) {
+      this.service = new PurchaseRequsitionService(this.context);
+    } 
     
     return super.onInit();
 }
