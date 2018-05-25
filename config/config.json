@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "purchase-requisition-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/purchaseRequisition/PurchaseRequisitionWebPart.js",
+          "manifest": "./src/webparts/purchaseRequisition/PurchaseRequisitionWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "PurchaseRequisitionWebPartStrings": "lib/webparts/purchaseRequisition/loc/{locale}.js"
+  }
+}

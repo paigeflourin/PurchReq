@@ -1,0 +1,12 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "purchase-requisition-client-side-solution",
+    "id": "2912d5ec-886b-4492-ac83-9aebbefeb2d8",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true
+  },
+  "paths": {
+    "zippedPackage": "solution/purchase-requisition.sppkg"
+  }
+}

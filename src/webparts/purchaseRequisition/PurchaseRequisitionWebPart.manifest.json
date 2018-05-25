@@ -1,0 +1,24 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
+  "id": "59e988fe-e17e-4bb7-ba3c-b8e02794ce9c",
+  "alias": "PurchaseRequisitionWebPart",
+  "componentType": "WebPart",
+
+
+  "version": "*",
+  "manifestVersion": 2,
+
+
+  "requiresCustomScript": false,
+
+  "preconfiguredEntries": [{
+    "groupId": "5c03119e-3074-46fd-976b-c60198311f70", 
+    "group": { "default": "Other" },
+    "title": { "default": "Purchase Requisition" },
+    "description": { "default": "Purchase Requisition description" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "description": "Purchase Requisition"
+    }
+  }]
+}
