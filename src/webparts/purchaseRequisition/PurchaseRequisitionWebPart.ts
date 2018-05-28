@@ -17,6 +17,7 @@ import { Environment, EnvironmentType } from '@microsoft/sp-core-library';
 
 export interface IPurchaseRequisitionWebPartProps {
     numberOfItems: number;
+    service: PurchaseRequsitionService;
 }
 
 export default class PurchaseRequisitionWebPart extends BaseClientSideWebPart<IPurchaseRequisitionWebPartProps> {
