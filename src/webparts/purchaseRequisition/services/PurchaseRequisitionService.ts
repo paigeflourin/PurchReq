@@ -31,4 +31,8 @@ export class PurchaseRequsitionService implements IPurchaseRequisitionService {
     changeStatus(Id: string, newStatus: string): Promise<IItemResult> {
         throw new Error("Method not implemented.");
     }
+
+    searchPeople(terms: string) {
+        //search sharepoint
+    }
 }

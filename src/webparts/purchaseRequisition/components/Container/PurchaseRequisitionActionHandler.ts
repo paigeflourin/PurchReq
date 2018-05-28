@@ -17,4 +17,8 @@ export class PurchaseRequisitionActionhandler {
     public async getAllItems(): Promise<any[]> {
         return await this.service.getAllItems();
     }
+
+    public async searchPeople(terms: string): Promise<any[]>{
+        return null;
+    }
 }

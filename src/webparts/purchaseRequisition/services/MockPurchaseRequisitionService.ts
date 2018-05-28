@@ -130,5 +130,11 @@ export class MockPurchaseRequisitionService   {
         throw new Error("Method not implemented.");
     }
 
+    searchPeople(terms: string) {
+        return new Promise<any[]>((resolve) => {
+            setTimeout(() => resolve(this.peopleList), 300);
+        });
+    }
+
 
 }

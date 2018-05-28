@@ -8,7 +8,6 @@ import {
   autobind,
   css
 } from 'office-ui-fabric-react/lib/Utilities';
-import { IOfficeUiFabricPeoplePickerProps } from './IOfficeUiFabricPeoplePickerProps';
 import {
     CompactPeoplePicker,
     IBasePickerSuggestionsProps,
@@ -17,10 +16,25 @@ import {
 import {
     Button, Checkbox, ChoiceGroup, Breadcrumb, ComboBox, DatePicker, Dialog, Dropdown, Persona, TextField, Toggle,Tooltip
 }from 'office-ui-fabric-react/lib/';
+import {
+    IClientPeoplePickerSearchUser,
+    IEnsurableSharePointUser,
+    IEnsureUser,
+    SharePointUserPersona } from '../../models/IPeoplePicker';
+
 import { IPersonaWithMenu } from 'office-ui-fabric-react/lib/components/pickers/PeoplePicker/PeoplePickerItems/PeoplePickerItem.Props';
+import { PurchaseRequisitionActionhandler } from '../Container/PurchaseRequisitionActionHandler';
+
+
+const suggestionProps: IBasePickerSuggestionsProps = {
+    suggestionsHeaderText: 'Suggested People',
+    noResultsFoundText: 'No results found',
+    loadingText: 'Loading'
+};
+
 
 export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitionFormProps,IPurchaseRequisitionFormState> {
-
+    private actionHandler: PurchaseRequisitionActionhandler;
     constructor(props: IPurchaseRequisitionFormProps) {
         super(props);
         this.onSaveClick = this.onSaveClick.bind(this);
@@ -141,16 +155,25 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
     }
 
     @autobind
-    private _onFilterChanged(filterText: string, currentPersonas: IPersonaProps[], limitResults?: number) {
+    private async _onFilterChanged(filterText: string, currentPersonas: IPersonaProps[], limitResults?: number) {
         if (filterText) {
         if (filterText.length > 2) {
-            return this._searchPeople(filterText, this._peopleList);
+            //comment out muna
+            return await this.actionHandler.searchPeople(filterText);
+            //return this._searchPeople(filterText, this._peopleList);
         }
         } else {
         return [];
         }
     }
 
+    /**
+   * @function
+   * Returns fake people results for the Mock mode
+   */
+    private searchPeopleFromMock(): IPersonaProps[] {
+        return null;
+    };
     private async onSaveClick(): Promise<void> {
         // if (this.validateFormData() === false) {
         //     return;
