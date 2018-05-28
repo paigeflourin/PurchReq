@@ -1,4 +1,6 @@
 import { IPurchaseRequisitionService } from "../../../../../lib/webparts/purchaseRequisition/services/IPurchaseRequisitionService";
+import { ViewType } from '../../helper/enum/ViewType';
+
 
 export interface IPurchaseRequisitionProps {
   numberOfItems: number;
@@ -8,6 +10,7 @@ export interface IPurchaseRequisitionProps {
 export interface IPurchaseRequisitionState {
   productRequests: any[];
   isDataLoaded: boolean;
-  view: string;
+  view: ViewType;
   error: string;
+  isOpen: boolean;
 }

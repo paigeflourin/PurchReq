@@ -6,6 +6,8 @@ import { PurchaseRequisitionListView } from '../ListView/PurchaseRequisitionList
 import { PurchaseRequisitionForm } from '../Form/PurchaseRequisitionForm';
 import { PurchaseRequisitionActionhandler } from './PurchaseRequisitionActionHandler';
 import { IPurchaseRequisitionService } from '../../services/IPurchaseRequisitionService';
+import { ViewType } from '../../helper/enum/ViewType';
+//import Modal from '.Modal';
 
 
 export class PurchaseRequisition extends React.Component<IPurchaseRequisitionProps, IPurchaseRequisitionState> {
@@ -14,15 +16,16 @@ export class PurchaseRequisition extends React.Component<IPurchaseRequisitionPro
   public token = null;
 
   constructor(props: IPurchaseRequisitionProps, state: IPurchaseRequisitionState){
-  super(props);
-  this.state = {  
-    productRequests: [],
-    view: "display",
-    error: "",
-    isDataLoaded: false
-  }
-  this.changeView = this.changeView.bind(this);
-  this.actionHandler = new PurchaseRequisitionActionhandler(this, this.props.service);
+    super(props);
+    this.state = {  
+      productRequests: [],
+      view: ViewType.Display,
+      error: "",
+      isDataLoaded: false,
+      isOpen: false
+    }
+    this.changeView = this.changeView.bind(this);
+    this.actionHandler = new PurchaseRequisitionActionhandler(this, this.props.service);
 
   }
 
@@ -39,13 +42,26 @@ export class PurchaseRequisition extends React.Component<IPurchaseRequisitionPro
         });
   }
 
+  toggleModal = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+
 //render the list view here as well as the add button to have form in a dialog
   public render(): React.ReactElement<IPurchaseRequisitionProps> {
     return (
       <div className={ styles.purchaseRequisition }>
         <div className={ styles.container }>
             <h1>Purchase Requisition List</h1>
-            
+            <div className='dws-flex-left'>
+                <a href="#" onClick={this.toggleModal}>
+                    Add&nbsp;<i className="ms-Icon ms-Icon--AddTo" aria-hidden="true"></i>
+                </a>
+
+                <PurchaseRequisitionForm show={this.state.isOpen} onClose={this.toggleModal} />
+               
+            </div>
             <PurchaseRequisitionListView productRequests={this.state.productRequests} numberOfItems={this.props.numberOfItems} changeView={this.changeView} actionHandler={this.actionHandler} />
 
         </div>
@@ -61,7 +77,7 @@ export class PurchaseRequisition extends React.Component<IPurchaseRequisitionPro
     });
   }
 
-  private changeView(view: string): void {
+  private changeView(view: ViewType): void {
     this.setState({ view });
   } 
 

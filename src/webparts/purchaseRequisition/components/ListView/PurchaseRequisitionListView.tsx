@@ -1,7 +1,9 @@
 import * as React from 'react';
+import * as ReactDom from 'react-dom';
 import { IPurchaseRequisitionListViewProps } from './IPurchaseRequisitionListViewProps';
 import styles from './PurchaseRequisitionListView.module.scss';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import 'react-bootstrap-table/css/react-bootstrap-table.css'
 
 export class PurchaseRequisitionListView extends React.Component<IPurchaseRequisitionListViewProps,any> {
 
