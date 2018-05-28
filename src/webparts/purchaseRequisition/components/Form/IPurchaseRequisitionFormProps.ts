@@ -6,6 +6,14 @@ export interface IPurchaseRequisitionFormProps {
     show: boolean;
     onClose: () => void;
     onChange?: (items: SharePointUserPersona[]) => void;
+    siteUrl?: string;
+    typePicker?: string;
+    principalTypeUser?: boolean;
+    principalTypeSharePointGroup?: boolean;
+    principalTypeSecurityGroup?: boolean;
+    principalTypeDistributionList?: boolean;
+    numberOfItems?: number;
+    spHttpClient?: SPHttpClient;
 }
 
 export interface IPurchaseRequisitionFormState {
@@ -24,5 +32,6 @@ export interface IPurchaseRequisitionFormState {
     Errors: string[];
     isLoading: boolean;
     selectedUsers: string[];
-    
+    currentPicker?: number | string;
+    delayResults?: boolean;
 }

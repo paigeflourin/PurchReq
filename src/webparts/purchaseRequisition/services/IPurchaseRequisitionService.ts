@@ -9,5 +9,4 @@ export interface IPurchaseRequisitionService {
     deleteRequest(Id: string): Promise<IItemResult>;
     // updateWebpartProps(propertyPath:string, newValue:any):void;
     changeStatus(Id:string,newStatus:string):Promise<IItemResult>;
-    searchPeople(terms: string);
 }
