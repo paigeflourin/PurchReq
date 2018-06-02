@@ -3,6 +3,7 @@ import IPurchaseDetails from './IPurchaseDetails';
 interface IPurchaseRequisition {
     Id: String;
     To: String;
+    Department: String;
     PurchaseDet: IPurchaseDetails[]
     TotalCost: string;
     SAPCostCentre: string;

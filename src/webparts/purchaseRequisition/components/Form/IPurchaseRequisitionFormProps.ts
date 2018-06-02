@@ -18,6 +18,7 @@ export interface IPurchaseRequisitionFormProps {
 
 export interface IPurchaseRequisitionFormState {
     Title: string;
+    Department: string;
     To: string;
     PurchaseDetails: any[];
     TotalCost: number;

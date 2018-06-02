@@ -1,8 +1,8 @@
 /* tslint:disable */
 require('./PurchaseRequisitionListView.module.css');
 const styles = {
-  errorMess: 'errorMess_e2f607e2',
-  content: 'content_e2f607e2',
+  errorMess: 'errorMess_cbe22ef0',
+  content: 'content_cbe22ef0',
 };
 
 export default styles;

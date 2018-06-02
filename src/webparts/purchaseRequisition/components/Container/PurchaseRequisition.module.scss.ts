@@ -1,16 +1,16 @@
 /* tslint:disable */
 require('./PurchaseRequisition.module.css');
 const styles = {
-  purchaseRequisition: 'purchaseRequisition_81e8b794',
-  container: 'container_81e8b794',
-  row: 'row_81e8b794',
-  column: 'column_81e8b794',
-  'ms-Grid': 'ms-Grid_81e8b794',
-  title: 'title_81e8b794',
-  subTitle: 'subTitle_81e8b794',
-  description: 'description_81e8b794',
-  button: 'button_81e8b794',
-  label: 'label_81e8b794',
+  purchaseRequisition: 'purchaseRequisition_114844bf',
+  container: 'container_114844bf',
+  row: 'row_114844bf',
+  column: 'column_114844bf',
+  'ms-Grid': 'ms-Grid_114844bf',
+  title: 'title_114844bf',
+  subTitle: 'subTitle_114844bf',
+  description: 'description_114844bf',
+  button: 'button_114844bf',
+  label: 'label_114844bf',
 };
 
 export default styles;

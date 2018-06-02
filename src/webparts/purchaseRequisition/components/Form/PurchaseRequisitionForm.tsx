@@ -80,6 +80,7 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
         this.state = {
             Title: "",
             To: "",
+            Department: "",
             PurchaseDetails: [],
             TotalCost: 0,
             SAPCostCentre: "",
@@ -140,6 +141,11 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     : ''
                 }
 
+                <ChoiceGroup label='Department'
+                    required={true}
+                    onBlur={(evt) => this._updateFormDataState('Department', evt)}    
+                />
+
                  <TextField
                     label='Vendor'
                     required={true}
@@ -156,6 +162,8 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     className={'ms-PeoplePicker'}
                     key={'normal'}
                     />
+
+                    
 
 
                 <div className="footer">
