@@ -1,6 +1,6 @@
 import { SPHttpClient } from '@microsoft/sp-http';
 import { SharePointUserPersona } from '../../models/IPeoplePicker';
-
+import IPurchaseDetails from '../../models/IPurchaseDetails';
 
 export interface IPurchaseRequisitionFormProps {
     show: boolean;
@@ -19,8 +19,8 @@ export interface IPurchaseRequisitionFormProps {
 export interface IPurchaseRequisitionFormState {
     Title: string;
     To: string;
-    PurchaseDetails: any[];
-    TotalCost: number;
+    PurchaseDetails: IPurchaseDetails[];
+    TotalCost: string;
     SAPCostCentre: string;
     AccountCode: string;
     RequestedBy: string;
@@ -34,4 +34,5 @@ export interface IPurchaseRequisitionFormState {
     selectedUsers: string[];
     currentPicker?: number | string;
     delayResults?: boolean;
+    purchDet: any[];
 }

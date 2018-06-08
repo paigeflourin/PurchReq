@@ -1,4 +1,4 @@
-import { IPurchaseRequisitionService } from "../../../../../lib/webparts/purchaseRequisition/services/IPurchaseRequisitionService";
+import { IPurchaseRequisitionService } from '../../services/IPurchaseRequisitionService';;
 import { ViewType } from '../../helper/enum/ViewType';
 
 

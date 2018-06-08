@@ -7,6 +7,7 @@ import { PurchaseRequisitionForm } from '../Form/PurchaseRequisitionForm';
 import { PurchaseRequisitionActionhandler } from './PurchaseRequisitionActionHandler';
 import { IPurchaseRequisitionService } from '../../services/IPurchaseRequisitionService';
 import { ViewType } from '../../helper/enum/ViewType';
+
 //import Modal from '.Modal';
 
 
@@ -14,6 +15,7 @@ export class PurchaseRequisition extends React.Component<IPurchaseRequisitionPro
 
   private actionHandler: PurchaseRequisitionActionhandler;
   public token = null;
+  
 
   constructor(props: IPurchaseRequisitionProps, state: IPurchaseRequisitionState){
     super(props);
