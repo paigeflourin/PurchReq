@@ -4,15 +4,12 @@ import styles from './PurchaseRequisitionForm.module.scss';
 import {MessageBar, MessageBarType, IPersonaProps,  assign,autobind,css, CompactPeoplePicker,
     IBasePickerSuggestionsProps, NormalPeoplePicker, Button, Checkbox, ChoiceGroup, Breadcrumb, ComboBox, DatePicker,
     Dialog, Dropdown, Persona, TextField, Toggle,Tooltip, IContextualMenuItem } from 'office-ui-fabric-react';
-
 import { IPersonaWithMenu } from 'office-ui-fabric-react/lib/components/pickers/PeoplePicker/PeoplePickerItems/PeoplePickerItem.Props';
 import {
     IClientPeoplePickerSearchUser,
     IEnsurableSharePointUser,
     IEnsureUser,
     SharePointUserPersona } from '../../models/IPeoplePicker';
-
-
 import { PurchaseRequisitionActionhandler } from '../Container/PurchaseRequisitionActionHandler';
 import "../../../../../node_modules/office-ui-fabric-core/dist/css/fabric.min.css";
 import {
@@ -24,14 +21,13 @@ import { Environment, EnvironmentType } from '@microsoft/sp-core-library';
 import * as pnp from 'sp-pnp-js';
 import IPurchaseRequisition  from '../../models/IPurchaseRequisition';
 import IItemResult  from '../../models/IItemResult';
-
-
 const suggestionProps: IBasePickerSuggestionsProps = {
     suggestionsHeaderText: 'Suggested People',
     noResultsFoundText: 'No results found',
     loadingText: 'Loading'
 };
 import IPurchaseDetails from '../../models/IPurchaseDetails';
+import { Repeatable }   from './Repeatable';
 
 export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitionFormProps,IPurchaseRequisitionFormState> {
     private actionHandler: PurchaseRequisitionActionhandler;
@@ -98,18 +94,17 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
 
     }
 
-
     public perRow() {
         return this.state.purchDet.map((el,i) => 
             
             <div key={i}>         
                 
-                <input type="text" className="form-control" placeholder="Project Code" value={el.ProjectCode} onBlur={(evt) => this._handleChange('ProjectCode', evt)}/>
-                <input type="text" className="form-control" placeholder="Budge Code" value={el.BudgetCode} onBlur={(evt) => this._handleChange('BudgetCode', evt)} />
-                <input type="text" className="form-control" placeholder="Details" value={el.Details} onBlur={(evt) => this._handleChange('Details', evt)} />
-                <input type="text" className="form-control" placeholder="Quantity" value={el.Quantity} onBlur={(evt) => this._handleChange('Quantity', evt)} />
-                <input type="text" className="form-control" placeholder="Cost" value={el.Cost} onBlur={(evt) => this._handleChange('Cost', evt)}   />
-                <input type="text" className="form-control" placeholder="SubTotal" value={el.SubTotal} onBlur={(evt) => this._handleChange('SubTotal', evt)}  readOnly />
+                <input type="text" name='ProjectCode' className="form-control" placeholder="Project Code" value={el.ProjectCode} onBlur={(evt) => this._handleChange('ProjectCode', evt)}/>
+                <input type="text" name='BudgetCode' className="form-control" placeholder="Budge Code" value={el.BudgetCode} onBlur={(evt) => this._handleChange('BudgetCode', evt)} />
+                <input type="text" name='Details' className="form-control" placeholder="Details" value={el.Details} onBlur={(evt) => this._handleChange('Details', evt)} />
+                <input type="text" name='Quantity' className="form-control" placeholder="Quantity" value={el.Quantity} onBlur={(evt) => this._handleChange('Quantity', evt)} />
+                <input type="text" name='Cost' className="form-control" placeholder="Cost" value={el.Cost} onBlur={(evt) => this._handleChange('Cost', evt)}   />
+                <input type="text" name='SubTotal' className="form-control" placeholder="SubTotal" value={el.SubTotal} onBlur={(evt) => this._handleChange('SubTotal', evt)}  readOnly />
                 <Button onClick={this.removeClick.bind(this, i)} text='Remove' />
             </div> 
         )
@@ -119,10 +114,10 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
         // this.setState({
         //     [i]: evt.target.value
         // });
-        const { value} = e.target;
+        const {name, value} = e.target;
         this.setState(prevState => {
             let values = [...prevState.purchDet];
-            values[i] =  {...values[i], [i]: value};
+            values[i] =  {...values[i], [name]: value};
             return { values };
         })
         console.log(this.state);
@@ -138,7 +133,8 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
         values.splice(i,1);
         this.setState({ purchDet: values });
     }
-    
+
+
     public render() {
         // Render nothing if the "show" prop is false
         if(!this.props.show) {
@@ -196,12 +192,18 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     onBlur={(evt) => this._updateFormDataState('RequestedBy', evt)}
                     />
                 <div>
-                    <h3> Product Details </h3>
-                    {this.perRow()} 
-                    <Button 
-                        onClick={this.addClick.bind(this)}
-                        text='Add'
-                    />
+                    {/*this.perRow()*/}
+                      {/* Pass in minimum, maximum, and title for each repeating unit */}
+                    <Repeatable minRepeat={1} maxRepeat={5} titleRepeat='Product Details'>
+                        <input type="text" name='ProjectCode' className="form-control" placeholder="Project Code" />
+                        <input type="text" name='BudgetCode' className="form-control" placeholder="Budge Code" />
+                        <input type="text" name='Details' className="form-control" placeholder="Details"   />
+                        <input type="text" name='Quantity' className="form-control" placeholder="Quantity"   />
+                        <input type="text" name='Cost' className="form-control" placeholder="Cost"  />
+                        <input type="text" name='SubTotal' className="form-control" placeholder="SubTotal" readOnly />
+                
+                    </Repeatable>
+                    
                 </div>
                 <TextField
                     label='Total Cost'
