@@ -142,7 +142,7 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
             <div>
              <div className={ styles.backdrop }>
                 <div className={ styles.modal }>
-                <div className={styles.modalBody}> 
+            Fixed some form fields Purchase Details still not working    <div className={styles.modalBody}> 
                 {this.state.isLoading ? spinner : ''}
 
                 {/* Display Messages */}
