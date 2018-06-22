@@ -3,14 +3,14 @@ import { IPurchaseRequisitionFormProps, IPurchaseRequisitionFormState } from './
 import styles from './PurchaseRequisitionForm.module.scss';
 import {MessageBar, MessageBarType, IPersonaProps,  assign,autobind,css, CompactPeoplePicker,
     IBasePickerSuggestionsProps, NormalPeoplePicker, Button, Checkbox, ChoiceGroup, Breadcrumb, ComboBox, DatePicker,
-    Dialog, Dropdown, Persona, TextField, Toggle,Tooltip, IContextualMenuItem } from 'office-ui-fabric-react';
+    Dialog, Dropdown, Persona, TextField, Toggle,Tooltip, IContextualMenuItem,Label, format } from 'office-ui-fabric-react';
 import { IPersonaWithMenu } from 'office-ui-fabric-react/lib/components/pickers/PeoplePicker/PeoplePickerItems/PeoplePickerItem.Props';
 import {
     IClientPeoplePickerSearchUser,
     IEnsurableSharePointUser,
     IEnsureUser,
     SharePointUserPersona } from '../../models/IPeoplePicker';
-import { PurchaseRequisitionActionhandler } from '../Container/PurchaseRequisitionActionHandler';
+//import { PurchaseRequisitionActionhandler } from '../Container/PurchaseRequisitionActionHandler';
 import "../../../../../node_modules/office-ui-fabric-core/dist/css/fabric.min.css";
 import {
     SPHttpClient,
@@ -30,7 +30,7 @@ import IPurchaseDetails from '../../models/IPurchaseDetails';
 import { Repeatable }   from './Repeatable';
 
 export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitionFormProps,IPurchaseRequisitionFormState> {
-    private actionHandler: PurchaseRequisitionActionhandler;
+    //private actionHandler: PurchaseRequisitionActionhandler;
     private _peopleList;
     private siteUrl = "https://campress.sharepoint.com/sites/IntranetDevelopment/ManilaProcurement/";
     //private purchDet = []
@@ -73,6 +73,7 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
         this.state = {
             Title: "",
             To: "",
+            Department: "",
             PurchaseDetails: [],
             TotalCost: "",
             SAPCostCentre: "",
@@ -87,51 +88,45 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
             isLoading: false,
             selectedUsers: [],
             currentPicker: "",
-            delayResults: false,
-            purchDet: []
+            delayResults: false
         };
         
 
     }
 
     public perRow() {
-        return this.state.purchDet.map((el,i) => 
+        return this.state.PurchaseDetails.map((pd,i) => 
             
-            <div key={i}>         
+            <fieldset key={i}>         
                 
-                <input type="text" name='ProjectCode' className="form-control" placeholder="Project Code" value={el.ProjectCode} onBlur={(evt) => this._handleChange('ProjectCode', evt)}/>
-                <input type="text" name='BudgetCode' className="form-control" placeholder="Budge Code" value={el.BudgetCode} onBlur={(evt) => this._handleChange('BudgetCode', evt)} />
-                <input type="text" name='Details' className="form-control" placeholder="Details" value={el.Details} onBlur={(evt) => this._handleChange('Details', evt)} />
-                <input type="text" name='Quantity' className="form-control" placeholder="Quantity" value={el.Quantity} onBlur={(evt) => this._handleChange('Quantity', evt)} />
-                <input type="text" name='Cost' className="form-control" placeholder="Cost" value={el.Cost} onBlur={(evt) => this._handleChange('Cost', evt)}   />
-                <input type="text" name='SubTotal' className="form-control" placeholder="SubTotal" value={el.SubTotal} onBlur={(evt) => this._handleChange('SubTotal', evt)}  readOnly />
+                <input type="text" name='ProjectCode' className="form-control" placeholder="Project Code" value={pd.ProjectCode} onBlur={(evt) => this._handleChange(this, i)}/>
+                <input type="text" name='BudgetCode' className="form-control" placeholder="Budge Code" value={pd.BudgetCode} onBlur={(evt) => this._handleChange('BudgetCode', i)} />
+                <input type="text" name='Details' className="form-control" placeholder="Details" value={pd.Details} onBlur={(evt) => this._handleChange('Details', i)} />
+                <input type="text" name='Quantity' className="form-control" placeholder="Quantity" value={pd.Quantity} onBlur={(evt) => this._handleChange('Quantity', i)} />
+                <input type="text" name='Cost' className="form-control" placeholder="Cost" value={pd.Cost} onBlur={(evt) => this._handleChange('Cost', i)}   />
+                <input type="text" name='SubTotal' className="form-control" placeholder="SubTotal" value={pd.SubTotal} onBlur={(evt) => this._handleChange('SubTotal', i)}  readOnly />
                 <Button onClick={this.removeClick.bind(this, i)} text='Remove' />
-            </div> 
+            </fieldset>  
         )
     }
     @autobind
-    private _handleChange(i, e) {
-        // this.setState({
-        //     [i]: evt.target.value
-        // });
-        const {name, value} = e.target;
-        this.setState(prevState => {
-            let values = [...prevState.purchDet];
-            values[i] =  {...values[i], [name]: value};
-            return { values };
-        })
-        console.log(this.state);
+    private _handleChange(i, event) {
+        console.log(event);
+        let values = [...this.state.PurchaseDetails];
+        values[i] = event.target.value;
+        this.setState({ PurchaseDetails: values });
+         console.log(this.state);
     }
 
     public addClick(){
-        this.setState(prevState => ({ purchDet: [...prevState.purchDet, '']}))
+        this.setState(prevState => ({ PurchaseDetails: [...prevState.PurchaseDetails, '']}))
         console.log(this.state);
     }
 
     public removeClick(i){
-        let values = [...this.state.purchDet];
+        let values = [...this.state.PurchaseDetails];
         values.splice(i,1);
-        this.setState({ purchDet: values });
+        this.setState({ PurchaseDetails: values });
     }
 
 
@@ -147,14 +142,12 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
             <div>
              <div className={ styles.backdrop }>
                 <div className={ styles.modal }>
+                <div className={styles.modalBody}> 
                 {this.state.isLoading ? spinner : ''}
-
-                <a href="#" onClick={this.onSaveClick}>
-                                <i className="ms-Icon ms-Icon--Save" aria-hidden="true"></i>&nbsp;Save
-                            </a>
 
                 {/* Display Messages */}
                 {this.state.Errors.length > 0 ?
+               
                     <div className={css("ms-Grid-row")} >
                         <MessageBar
                             messageBarType={MessageBarType.error}
@@ -174,6 +167,16 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     : ''
                 }
 
+                <ChoiceGroup 
+                    label='Department'
+                    required={true}
+                    options={[
+                        {key: 'CUP', text: 'CUP'},
+                        {key: 'CA', text: 'CA'}
+                    ]} 
+
+                />
+
                  <TextField
                     label='Vendor'
                     required={true}
@@ -181,7 +184,8 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     value={this.state.To}
                     onBlur={(evt) => this._updateFormDataState('To', evt)}
                 />
-
+                
+                <Label> Requesting Manager </Label>
                  <NormalPeoplePicker
                     onChange={this._onChange.bind(this) }
                     onResolveSuggestions={this._onFilterChanged }
@@ -191,26 +195,19 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     key={'normal'}
                     onBlur={(evt) => this._updateFormDataState('RequestedBy', evt)}
                     />
+
                 <div>
-                    {/*this.perRow()*/}
-                      {/* Pass in minimum, maximum, and title for each repeating unit */}
-                    <Repeatable minRepeat={1} maxRepeat={5} titleRepeat='Product Details'>
-                        <input type="text" name='ProjectCode' className="form-control" placeholder="Project Code" />
-                        <input type="text" name='BudgetCode' className="form-control" placeholder="Budge Code" />
-                        <input type="text" name='Details' className="form-control" placeholder="Details"   />
-                        <input type="text" name='Quantity' className="form-control" placeholder="Quantity"   />
-                        <input type="text" name='Cost' className="form-control" placeholder="Cost"  />
-                        <input type="text" name='SubTotal' className="form-control" placeholder="SubTotal" readOnly />
-                
-                    </Repeatable>
-                    
+                    <Label> Purchase Details </Label>
+                    {this.perRow()}    
+                    <Button onClick={this.addClick.bind(this)} text='Add' />           
                 </div>
+
                 <TextField
                     label='Total Cost'
                     required={true}
                     placeholder='Total Cost'
                     value={this.state.TotalCost}
-                    readOnly
+               
                     onBlur={(evt) => this._updateFormDataState('TotalCost', evt)}
                 />
 
@@ -218,7 +215,7 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     placeHolder="SAP Cost Centre"
                     required={true}
                     label="SAP Cost Centre"
-                    onBlur={(evt) => this._updateFormDataState('SAPCostCentre', evt)}
+                    onChanged={(item) => this._updateDropdownState('SAPCostCentre', item.key)}
                     options={[
                         { key: 'F', text: 'Option f', data: { icon: 'Running' } },
                         { key: 'G', text: 'Option g', data: { icon: 'EmojiNeutral' } },
@@ -232,7 +229,7 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     placeHolder="Account Code"
                     required={true}
                     label="Account Code"
-                    onBlur={(evt) => this._updateFormDataState('AccountCode', evt)}
+                    onChanged={(item) => this._updateDropdownState('AccountCode', item.key)}
                     options={[
                         { key: 'F', text: 'Option f', data: { icon: 'Running' } },
                         { key: 'G', text: 'Option g', data: { icon: 'EmojiNeutral' } },
@@ -246,8 +243,7 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     label='Budget (Month)'
                     required={true}
                     placeholder='Budget (Month)'
-                    value={this.state.TotalCost}
-                    readOnly
+                    value={this.state.BudgetMonth}
                     onBlur={(evt) => this._updateFormDataState('BudgetMonth', evt)}
                 />
 
@@ -255,8 +251,7 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     label='Budget (Balance)'
                     required={true}
                     placeholder='Budget (Balance)'
-                    value={this.state.TotalCost}
-                    readOnly
+                    value={this.state.BudgetBalance}
                     onBlur={(evt) => this._updateFormDataState('BudgetBalance', evt)}
                 />
 
@@ -264,22 +259,53 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     label='Purchase Order'
                     required={true}
                     placeholder='Purchase Order'
-                    value={this.state.TotalCost}
-                    readOnly
+                    value={this.state.PurchaseOrder}
                     onBlur={(evt) => this._updateFormDataState('PurchaseOrder', evt)}
                 />
 
                 <div className="footer">
+                    <Button 
+                        onClick={this.onSaveClick}
+                        text='Save' 
+                    />
 
                     <Button 
                         onClick={this.props.onClose}
                         text='Close'
                     />
                 </div>
-                </div>
+            </div> 
             </div>
-            </div >
+        </div>
+        </div >
         );
+    }
+
+    private async onSaveClick(): Promise<void> {
+        console.log("save data");
+       // if (this.validateFormData() === false) {
+       //     return;
+       // }
+        this.setLoading(true);
+        const formData: IPurchaseRequisition = {
+            Id: '',
+            To: this.state.To,
+            PurchaseDet: this.state.PurchaseDetails,
+            TotalCost: this.state.TotalCost,
+            SAPCostCentre: this.state.SAPCostCentre,
+            AccountCode: this.state.AccountCode,
+            RequestedBy: this.state.RequestedBy,
+            BudgetBalance: this.state.BudgetBalance,
+            BudgetMonth: this.state.BudgetMonth,
+            PurchaseOrder: this.state.PurchaseOrder
+        };
+        console.log(formData);
+        const result: IItemResult = await this.props.actionHandler.createPurchaseRequisition(formData);
+        if (result.status === false) {
+            this.setState({ Errors: [result.message] });
+        }
+
+        this.setLoading(false);
     }
 
     @autobind
@@ -289,8 +315,17 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
 
     @autobind
     private _updateFormDataState(prop: any, evt) {
+        console.log(prop, evt.target);
         this.setState({
             [prop]: evt.target.value
+        });
+    }
+
+    @autobind
+    private _updateDropdownState(prop: any, evt){
+        console.log(prop,evt);
+        this.setState({
+            [prop]: evt
         });
     }
 
@@ -316,7 +351,7 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
         return [];
         }
     }
-
+ 
     /**
    * @function
    * Returns fake people results for the Mock mode
@@ -466,30 +501,5 @@ private _doesTextStartWith(text: string, filterText: string): boolean {
     return text.toLowerCase().indexOf(filterText.toLowerCase()) === 0;
 }    
 
-    private async onSaveClick(): Promise<void> {
-        console.log("save data");
-       // if (this.validateFormData() === false) {
-       //     return;
-       // }
-        this.setLoading(true);
-        const formData: IPurchaseRequisition = {
-            Id: '',
-            To: this.state.To,
-            PurchaseDet: this.state.PurchaseDetails,
-            TotalCost: this.state.TotalCost,
-            SAPCostCentre: this.state.SAPCostCentre,
-            AccountCode: this.state.AccountCode,
-            RequestedBy: this.state.RequestedBy,
-            BudgetBalance: this.state.BudgetBalance,
-            BudgetMonth: this.state.BudgetMonth,
-            PurchaseOrder: this.state.PurchaseOrder
-        };
-
-        const result: IItemResult = await this.actionHandler.createPurchaseRequisition(formData);
-        if (result.status === false) {
-            this.setState({ Errors: [result.message] });
-        }
-
-        this.setLoading(false);
-    }
+    
 }

@@ -22,7 +22,10 @@ export class PurchaseRequsitionService implements IPurchaseRequisitionService {
         return res;
     };
     public addNewRequest(formData: IPurchaseRequisition): Promise<IItemResult> {
+        console.log(formData);
+        
         return null;
+
     }
 
 

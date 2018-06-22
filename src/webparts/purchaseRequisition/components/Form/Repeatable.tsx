@@ -27,7 +27,7 @@ export class Repeatable extends React.Component<any,any> {
         this.setState({
             repeatedItems: newItems          
         });
-        console.log(this.state.repeatedItems);
+        //console.log(this.state.repeatedItems);
     };
 
     public render() {

@@ -20,7 +20,9 @@ export class PurchaseRequisitionActionhandler {
     }
 
     public async createPurchaseRequisition(formData: IPurchaseRequisition): Promise<IItemResult> {
-        const result: IItemResult   = await this.service.addNewRequest(formData);
+        const newData: IPurchaseRequisition = formData;
+
+        const result: IItemResult   = await this.service.addNewRequest(newData);
         return result;
     }
 }

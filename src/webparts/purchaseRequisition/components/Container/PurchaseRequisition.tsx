@@ -61,7 +61,7 @@ export class PurchaseRequisition extends React.Component<IPurchaseRequisitionPro
                     Add&nbsp;<i className="ms-Icon ms-Icon--AddTo" aria-hidden="true"></i>
                 </a>
 
-                <PurchaseRequisitionForm show={this.state.isOpen} onClose={this.toggleModal} />
+                <PurchaseRequisitionForm show={this.state.isOpen} onClose={this.toggleModal} actionHandler={this.actionHandler} />
                
             </div>
             <PurchaseRequisitionListView productRequests={this.state.productRequests} numberOfItems={this.props.numberOfItems} changeView={this.changeView} actionHandler={this.actionHandler} />

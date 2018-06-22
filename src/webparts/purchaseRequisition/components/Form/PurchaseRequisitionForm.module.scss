@@ -18,4 +18,11 @@
     margin: 0px auto;
     padding: 5%;
     margin-top: 5%;
+    overflow-y: initial;
+    overflow:auto;
 };
+
+.modalBody {
+  overflow-y: auto;
+  height: 760px;
+}
