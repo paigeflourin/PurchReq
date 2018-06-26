@@ -86,7 +86,10 @@ export class MockPurchaseRequisitionService   {
         });
     }
 
-    addNewRequest: (formData: IPurchaseRequisition) => Promise<IItemResult>
+    addNewRequest(formData: IPurchaseRequisition): Promise<IItemResult> {
+        console.log(formData);
+        return null;
+    }
     updateRequest(formData: IPurchaseRequisition): Promise<IItemResult> {
         throw new Error("Method not implemented.");
     }

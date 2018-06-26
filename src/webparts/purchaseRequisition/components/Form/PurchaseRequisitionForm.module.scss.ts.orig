@@ -1,14 +1,9 @@
 /* tslint:disable */
 require('./PurchaseRequisitionForm.module.css');
 const styles = {
-<<<<<<< HEAD
-  backdrop: 'backdrop_bd90ef5c',
-  modal: 'modal_bd90ef5c',
-=======
   backdrop: 'backdrop_585ad104',
   modal: 'modal_585ad104',
   modalBody: 'modalBody_585ad104',
->>>>>>> 2b481674f20a6aa3dbf401a4204617affc7a2d99
 };
 
 export default styles;

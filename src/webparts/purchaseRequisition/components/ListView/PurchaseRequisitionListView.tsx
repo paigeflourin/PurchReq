@@ -48,7 +48,7 @@ export class PurchaseRequisitionListView extends React.Component<IPurchaseRequis
                         expandComponent={ this.expandComponent }
                         expandColumnOptions={ { expandColumnVisible: true } }
                         search>
-                        <TableHeaderColumn dataField='Department' isKey={ true }>Department</TableHeaderColumn>
+                        <TableHeaderColumn dataField='Department'>Department</TableHeaderColumn>
                         <TableHeaderColumn dataField='Title' isKey={ true }>PR Number</TableHeaderColumn>
                         <TableHeaderColumn dataField='To'>Vendor</TableHeaderColumn>
                         <TableHeaderColumn dataField='PurchaseDet'>Purchase Details</TableHeaderColumn>

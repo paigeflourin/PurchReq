@@ -22,7 +22,6 @@ export interface IPurchaseRequisitionFormState {
     Title: string;
     Department: string;
     To: string;
-    Department: string;
     PurchaseDetails: IPurchaseDetails[];
     TotalCost: string;
     SAPCostCentre: string;

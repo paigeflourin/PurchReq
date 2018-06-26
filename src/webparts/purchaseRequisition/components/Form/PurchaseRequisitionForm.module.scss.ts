@@ -1,9 +1,9 @@
 /* tslint:disable */
 require('./PurchaseRequisitionForm.module.css');
 const styles = {
-  backdrop: 'backdrop_bd90ef5c',
-  modal: 'modal_bd90ef5c',
-  modalBody: 'modalBody_585ad104',
+  backdrop: 'backdrop_fa782fb4',
+  modal: 'modal_fa782fb4',
+  modalBody: 'modalBody_fa782fb4',
 };
 
 export default styles;
