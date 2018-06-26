@@ -21,7 +21,7 @@ export class PurchaseRequisitionListView extends React.Component<IPurchaseRequis
     }
 
     public render() {
-        console.log(this.props.productRequests);
+        //console.log(this.props.productRequests);
         const spinner = (
             <div className='loading'>Processing...</div>
         );
@@ -48,6 +48,7 @@ export class PurchaseRequisitionListView extends React.Component<IPurchaseRequis
                         expandComponent={ this.expandComponent }
                         expandColumnOptions={ { expandColumnVisible: true } }
                         search>
+                        <TableHeaderColumn dataField='Department' isKey={ true }>Department</TableHeaderColumn>
                         <TableHeaderColumn dataField='Title' isKey={ true }>PR Number</TableHeaderColumn>
                         <TableHeaderColumn dataField='To'>Vendor</TableHeaderColumn>
                         <TableHeaderColumn dataField='PurchaseDet'>Purchase Details</TableHeaderColumn>
@@ -71,7 +72,7 @@ export class PurchaseRequisitionListView extends React.Component<IPurchaseRequis
     }
 
     expandComponent(row) {
-        console.log(row);
+        //console.log(row);
         return (
             <BSTable data={ row.PurchaseDet } />
         );
@@ -91,7 +92,7 @@ export class PurchaseRequisitionListView extends React.Component<IPurchaseRequis
 
 class BSTable extends React.Component<any,any> {
     render() {
-      console.log(this.props.data);  
+      //console.log(this.props.data);  
       if (this.props.data) {
         return (
           <BootstrapTable data={ this.props.data }>

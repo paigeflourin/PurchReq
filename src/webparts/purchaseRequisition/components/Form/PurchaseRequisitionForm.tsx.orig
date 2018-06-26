@@ -167,6 +167,11 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     : ''
                 }
 
+<<<<<<< HEAD
+                <ChoiceGroup label='Department'
+                    required={true}
+                    onBlur={(evt) => this._updateFormDataState('Department', evt)}    
+=======
                 <ChoiceGroup 
                     label='Department'
                     required={true}
@@ -174,6 +179,8 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                         {key: 'CUP', text: 'CUP'},
                         {key: 'CA', text: 'CA'}
                     ]} 
+
+>>>>>>> 2b481674f20a6aa3dbf401a4204617affc7a2d99
                 />
 
                  <TextField
@@ -195,8 +202,10 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     onBlur={(evt) => this._updateFormDataState('RequestedBy', evt)}
                     />
 
+<<<<<<< HEAD
                     
 
+=======
                 <div>
                     <Label> Purchase Details </Label>
                     {this.perRow()}    
@@ -263,6 +272,7 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                     value={this.state.PurchaseOrder}
                     onBlur={(evt) => this._updateFormDataState('PurchaseOrder', evt)}
                 />
+>>>>>>> 2b481674f20a6aa3dbf401a4204617affc7a2d99
 
                 <div className="footer">
                     <Button 

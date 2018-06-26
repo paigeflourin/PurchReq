@@ -1,6 +1,7 @@
 import { SPHttpClient } from '@microsoft/sp-http';
 import { SharePointUserPersona } from '../../models/IPeoplePicker';
-
+import IPurchaseDetails from '../../models/IPurchaseDetails';
+import { PurchaseRequisitionActionhandler } from '../Container/PurchaseRequisitionActionHandler';
 
 export interface IPurchaseRequisitionFormProps {
     show: boolean;
@@ -14,14 +15,16 @@ export interface IPurchaseRequisitionFormProps {
     principalTypeDistributionList?: boolean;
     numberOfItems?: number;
     spHttpClient?: SPHttpClient;
+    actionHandler: PurchaseRequisitionActionhandler;
 }
 
 export interface IPurchaseRequisitionFormState {
     Title: string;
     Department: string;
     To: string;
-    PurchaseDetails: any[];
-    TotalCost: number;
+    Department: string;
+    PurchaseDetails: IPurchaseDetails[];
+    TotalCost: string;
     SAPCostCentre: string;
     AccountCode: string;
     RequestedBy: string;

@@ -14,6 +14,7 @@ export class MockPurchaseRequisitionService   {
             ID: 1,
             Title: '1',
             To: "Nexus",
+            Department: "CUP",
             PurchaseDet: [
                 {
                     ProjectCode: '123asd',
@@ -46,6 +47,7 @@ export class MockPurchaseRequisitionService   {
             ID: 2,
             Title: '2',
             To: "Northgate",
+            Department: "CA",
             PurchaseDet: [
                 {
                     ProjectCode: '123asd',

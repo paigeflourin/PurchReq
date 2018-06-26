@@ -7,6 +7,7 @@ import { PurchaseRequisitionForm } from '../Form/PurchaseRequisitionForm';
 import { PurchaseRequisitionActionhandler } from './PurchaseRequisitionActionHandler';
 import { IPurchaseRequisitionService } from '../../services/IPurchaseRequisitionService';
 import { ViewType } from '../../helper/enum/ViewType';
+
 //import Modal from '.Modal';
 
 
@@ -14,6 +15,7 @@ export class PurchaseRequisition extends React.Component<IPurchaseRequisitionPro
 
   private actionHandler: PurchaseRequisitionActionhandler;
   public token = null;
+  
 
   constructor(props: IPurchaseRequisitionProps, state: IPurchaseRequisitionState){
     super(props);
@@ -59,7 +61,7 @@ export class PurchaseRequisition extends React.Component<IPurchaseRequisitionPro
                     Add&nbsp;<i className="ms-Icon ms-Icon--AddTo" aria-hidden="true"></i>
                 </a>
 
-                <PurchaseRequisitionForm show={this.state.isOpen} onClose={this.toggleModal} />
+                <PurchaseRequisitionForm show={this.state.isOpen} onClose={this.toggleModal} actionHandler={this.actionHandler} />
                
             </div>
             <PurchaseRequisitionListView productRequests={this.state.productRequests} numberOfItems={this.props.numberOfItems} changeView={this.changeView} actionHandler={this.actionHandler} />

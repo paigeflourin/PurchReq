@@ -1,0 +1,20 @@
+<<<<<<< HEAD
+import { IPurchaseRequisitionService } from "../../services/IPurchaseRequisitionService";
+=======
+import { IPurchaseRequisitionService } from '../../services/IPurchaseRequisitionService';;
+>>>>>>> 2b481674f20a6aa3dbf401a4204617affc7a2d99
+import { ViewType } from '../../helper/enum/ViewType';
+
+
+export interface IPurchaseRequisitionProps {
+  numberOfItems: number;
+  service: IPurchaseRequisitionService;
+}
+
+export interface IPurchaseRequisitionState {
+  productRequests: any[];
+  isDataLoaded: boolean;
+  view: ViewType;
+  error: string;
+  isOpen: boolean;
+}

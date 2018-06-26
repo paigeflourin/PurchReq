@@ -21,7 +21,14 @@ export class PurchaseRequsitionService implements IPurchaseRequisitionService {
         });
         return res;
     };
-    addNewRequest: (formData: IPurchaseRequisition) => Promise<IItemResult>;
+    public addNewRequest(formData: IPurchaseRequisition): Promise<IItemResult> {
+        console.log(formData);
+        
+        return null;
+
+    }
+
+
     updateRequest(formData: IPurchaseRequisition): Promise<IItemResult> {
         throw new Error("Method not implemented.");
     }
