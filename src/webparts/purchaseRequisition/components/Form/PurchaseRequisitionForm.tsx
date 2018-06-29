@@ -123,6 +123,7 @@ export class PurchaseRequisitionForm extends React.Component<IPurchaseRequisitio
                 return {
                     PurchaseDetails: prevState.PurchaseDetails.map((detail,index) => {
                         if(index === rowCount){
+                            
                             return {
                                 ...detail,
                                 [name]: value
